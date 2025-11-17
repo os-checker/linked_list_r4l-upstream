@@ -1,0 +1,11 @@
+[package]
+name = "pin-init"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+pin-init-internal = { path = "../pin-init-internal/" }
+paste = "1"
+
+[dev-dependencies]
+libc = "0.2.177"

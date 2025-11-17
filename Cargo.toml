@@ -1,0 +1,23 @@
+[package]
+name = "linked_list_r4l-upstream"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+paste = "1.0.15"
+ffi = { workspace = true }
+pin-init = { workspace = true }
+bindings = { workspace = true }
+
+[workspace]
+members = ["bindings", "ffi", "pin-init", "pin-init-internal"]
+
+[workspace.dependencies]
+ffi = { path = "ffi" }
+pin-init = { path = "pin-init" }
+bindings = { path = "bindings" }
+
+[lints.rust]
+unexpected_cfgs = { level = "allow", check-cfg = [
+  'cfg(CONFIG_RUSTC_HAS_COERCE_POINTEE)',
+] }
