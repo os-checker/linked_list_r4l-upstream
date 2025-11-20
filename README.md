@@ -82,3 +82,57 @@ make LLVM=1 rust-analyzer
 # Compile a sample.
 make LLVM=1 samples/rust/rust_minimal.o
 ```
+
+Doc and `#[test]` tests are executed through Linux's testing framework [KUnit].
+
+[KUnit]: https://docs.kernel.org/rust/testing.html
+
+```bash
+./tools/testing/kunit/kunit.py run --make_options LLVM=1 --arch x86_64 --kconfig_add CONFIG_RUST=y
+...
+[04:08:32] ============== list-kunit-test (39 subtests) ===============
+[04:08:32] [PASSED] list_test_list_init
+[04:08:32] [PASSED] list_test_list_add
+[04:08:32] [PASSED] list_test_list_add_tail
+[04:08:32] [PASSED] list_test_list_del
+[04:08:32] [PASSED] list_test_list_replace
+[04:08:32] [PASSED] list_test_list_replace_init
+[04:08:32] [PASSED] list_test_list_swap
+[04:08:32] [PASSED] list_test_list_del_init
+[04:08:32] [PASSED] list_test_list_del_init_careful
+[04:08:32] [PASSED] list_test_list_move
+[04:08:32] [PASSED] list_test_list_move_tail
+[04:08:32] [PASSED] list_test_list_bulk_move_tail
+[04:08:32] [PASSED] list_test_list_is_head
+[04:08:32] [PASSED] list_test_list_is_first
+[04:08:32] [PASSED] list_test_list_is_last
+[04:08:32] [PASSED] list_test_list_empty
+[04:08:32] [PASSED] list_test_list_empty_careful
+[04:08:32] [PASSED] list_test_list_rotate_left
+[04:08:32] [PASSED] list_test_list_rotate_to_front
+[04:08:32] [PASSED] list_test_list_is_singular
+[04:08:32] [PASSED] list_test_list_cut_position
+[04:08:32] [PASSED] list_test_list_cut_before
+[04:08:32] [PASSED] list_test_list_splice
+[04:08:32] [PASSED] list_test_list_splice_tail
+[04:08:32] [PASSED] list_test_list_splice_init
+[04:08:32] [PASSED] list_test_list_splice_tail_init
+[04:08:32] [PASSED] list_test_list_entry
+[04:08:32] [PASSED] list_test_list_entry_is_head
+[04:08:32] [PASSED] list_test_list_first_entry
+[04:08:32] [PASSED] list_test_list_last_entry
+[04:08:32] [PASSED] list_test_list_first_entry_or_null
+[04:08:32] [PASSED] list_test_list_next_entry
+[04:08:32] [PASSED] list_test_list_prev_entry
+[04:08:32] [PASSED] list_test_list_for_each
+[04:08:32] [PASSED] list_test_list_for_each_prev
+[04:08:32] [PASSED] list_test_list_for_each_safe
+[04:08:32] [PASSED] list_test_list_for_each_prev_safe
+[04:08:32] [PASSED] list_test_list_for_each_entry
+[04:08:32] [PASSED] list_test_list_for_each_entry_reverse
+[04:08:32] ================= [PASSED] list-kunit-test =================
+...
+[04:09:25] ============================================================
+[04:09:25] Testing complete. Ran 993 tests: passed: 922, skipped: 71
+[04:09:25] Elapsed time: 167.896s total, 1.718s configuring, 56.638s building, 109.497s running
+```
